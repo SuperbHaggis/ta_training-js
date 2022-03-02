@@ -3,6 +3,11 @@ import { By, Key, until } from 'selenium-webdriver';
 
 class CalculatorPage extends Page {
   // This is only because the search results were not coming up correctly
+  async setWindow() {
+    const originalWindow = await driver.getWindowHandle();
+    return originalWindow;
+  }
+  
   async open() {
     await super.open('https://cloud.google.com/products/calculator');
   }
@@ -15,7 +20,7 @@ class CalculatorPage extends Page {
   }
 
   async enterInstances(number) {
-    await driver.wait(until.elementLocated(By.id('input_78')), 10000).click();
+    await driver.wait(until.elementLocated(By.id('input_79')), 10000).click();
     for (let i = 0; i < number; i++) {
       await driver.actions()
       .keyDown(Key.ARROW_UP)
@@ -33,32 +38,21 @@ class CalculatorPage extends Page {
     await driver.findElement(By.xpath('//*[@id="mainForm"]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[11]/div[1]/md-input-container/md-checkbox')).click();
   }
 
-  async clickEstimateButton() {
-    await driver.findElement(By.xpath('//*[@id="mainForm"]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[18]/button')).click();
-  }
-
   async getEstimateData(xpath) {
     const estimateData = await driver.findElement(By.xpath(xpath));
     return estimateData.getText();
   }
   
-  // async chooseOS() {
-  //   await driver.wait(until.elementLocated(By.id('select_91'), 10000)).click();
-  //   const option = await driver.wait(until.elementLocated(By.id('select_option_80')))
-  //   await driver.wait(until.elementIsVisible(option)).click();
-  // }
+  async clickButton(xpath) {
+    await driver.findElement(By.xpath(xpath)).click();
+  }
 
-  // async chooseSeries() {
-  //   await driver.findElement(By.id('select_103')).click();
-  //   const option = await driver.wait(until.elementLocated(By.id('select_option_218')), 10000);
-  //   await driver.wait(until.elementIsVisible(option)).click();
-  // }
-
-  // async chooseMachineType() {
-  //   await driver.findElement(By.id('select_105')).click();
-  //   const option = await driver.wait(until.elementLocated(By.id('select_option_421')), 10000);
-  //   await driver.wait(until.elementLocated(option)).click();
-  // }
+  async enterEmailAddress(emailAddress) {
+    const formField = await driver.wait(until.elementLocated(By.id('input_532')), 10000);
+    const emailField = await driver.wait(until.elementIsVisible(formField));
+    emailField.click();
+    emailField.sendKeys(emailAddress);
+  }
 }
 
 export default new CalculatorPage;
