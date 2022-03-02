@@ -1,6 +1,6 @@
 import * as assert from 'assert';
-import HomePage from './pages/GCHomePage.mjs';
-import CalculatorPage from './pages/GCCalculatorPage.mjs';
+import HomePage from '../pages/GCHomePage.mjs';
+import CalculatorPage from '../pages/GCCalculatorPage.mjs';
 
 describe('Tests "Hurt Me Plenty" challenge', () => {
   // it('Navigates to the Google Cloud homepage', async () => {
