@@ -10,12 +10,11 @@ class GoogleCloudCalculatorPage extends Page {
   }
 
   get estimateBtn() {
-    // return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[17]/button');
     return $('button=Add to Estimate');
   }
 
   get emailEstimteBtn() {
-    return $('/html/body/md-content/md-card/div/md-card-content[2]/md-card/md-card-content/div/div/div/div[2]/button[1]');
+    return $('button=Email Estimate');
   }
 
   get emailInput() {
@@ -24,7 +23,7 @@ class GoogleCloudCalculatorPage extends Page {
   }
 
   get emailBtn() {
-    return $('/html/body/div[7]/md-dialog/form/md-dialog-actions/button[2]');
+    return $('button=Send Email');
   }
 
   async clickEstimateBtn() {
@@ -57,6 +56,15 @@ class GoogleCloudCalculatorPage extends Page {
 
     await driver.waitUntil(async () => await driver.$(`[value="${optionValue}"]`).isDisplayed());
     const option = await driver.$(`[value="${optionValue}"]`);
+    await option.click();
+  }
+
+  async selectOptionByText(selectPlaceholder, text) {
+    const select = await driver.$(`[placeholder="${selectPlaceholder}"]`);
+    await select.click();
+
+    await driver.waitUntil(async () => await driver.$(`div*=${text}`).isDisplayed());
+    const option = await driver.$(`div*=${text}`).parentElement();
     await option.click();
   }
 

@@ -6,7 +6,7 @@ class TenMinuteMailPage extends Page {
   }
 
   async getEmailAddress() {
-    driver.waitUntil(async () => (await this.emailInput).getValue() !== '');
+    await driver.waitUntil(async () => (await this.emailInput).getValue() !== '');
     return (await this.emailInput).getValue();
   }
 
