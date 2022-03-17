@@ -19,7 +19,7 @@ class HomePage extends Page {
   }
 
   async chooseExpiration() {
-    const expiration = await driver.findElement(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[2]/div'));
+    const expiration = await driver.findElement(By.id('postform-expiration'));
     expiration.click();
     await driver.actions()
       .keyDown(Key.ARROW_DOWN)
@@ -29,12 +29,12 @@ class HomePage extends Page {
   }
 
   getExpiration() {
-    return driver.findElement(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[2]/div'));
+    return driver.findElement(By.id('postform-expiration'));
   }
 
   async chooseSyntax() {
     const syntax = await driver
-      .findElement(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[1]/div/span'));
+      .findElement(By.id('postform-format'));
     
     await syntax.click();
     await driver.actions()
@@ -44,12 +44,11 @@ class HomePage extends Page {
   }
 
   getSyntax() {
-    return driver.findElement(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[1]/div/span'))
+    return driver.findElement(By.id('postform-format'));
   }
 
   async submitPost() {
-    await driver.findElement(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[8]/button'))
-      .submit();
+    await driver.findElement(By.id('postform-format')).submit();
   }
 
   async enterNewLine() {

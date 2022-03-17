@@ -1,5 +1,5 @@
 import Page from "./Page.mjs";
-import { By, Key, until } from 'selenium-webdriver';
+import { By } from 'selenium-webdriver';
 
 class EmailPage extends Page {
   async changeWindow() {
@@ -20,8 +20,18 @@ class EmailPage extends Page {
   }
 
   async getEmailAddress() {
-    const address = await driver.findElement(By.xpath('//*[@id="email-widget"]'))
+    const address = await driver.findElement(By.id('email-widget'));
     return address.getText();
+  }
+
+  async openEmail() {
+    const email = await driver.findElement(By.className('mail_message'));
+    await email.click();
+  }
+
+  async getEmailEstimate() {
+    await this.openEmail();
+    return await driver.findElement(By.partialLinkText('USD')).getText();
   }
 }
 

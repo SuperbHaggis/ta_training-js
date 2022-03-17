@@ -2,7 +2,7 @@ import * as webdriver from 'selenium-webdriver';
 
 class Page {
   constructor() {
-    global.driver = new webdriver.Builder().forBrowser('chrome').build()
+    global.driver = new webdriver.Builder().forBrowser('chrome').build();
   }
 
   async open(url) {
@@ -14,4 +14,4 @@ class Page {
   }
 }
 
-export default Page
+export default Page;

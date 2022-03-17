@@ -7,9 +7,9 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
   await driver.get('https://www.pastebin.com');
 
   let postForm = await driver.wait(until.elementLocated(By.id('postform-text')), 50000);
-  let expiration = await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[2]/div')), 50000);
-  let title = await driver.wait(until.elementLocated(By.id('postform-name')), 5000);
-  let submitButton = await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/div[2]/div[1]/div[2]/div/form/div[5]/div[1]/div[8]/button')), 5000);
+  let expiration = await driver.wait(until.elementLocated(By.id('select2-postform-expiration-result-bu7a-10M')), 50000);
+  let title = await driver.wait(until.elementLocated(By.linkText('Create New Paste')), 50000);
+  let submitButton = await driver.wait(until.elementLocated(By.id('')), 50000);
 
   await postForm.click();
   await postForm.sendKeys('Hello from WebDriver');

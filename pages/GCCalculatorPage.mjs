@@ -2,7 +2,31 @@ import Page from "./Page.mjs";
 import { By, Key, until } from 'selenium-webdriver';
 
 class CalculatorPage extends Page {
-  // This is only because the search results were not coming up correctly
+  constructor() {
+    this.osSelect = 'select_91';
+    this.osOption = 'select_option_80';
+    this.seriesSelect = 'select_103';
+    this.seriesOption = 'select_option_218';
+    this.machineTypeSelect = 'select_105';
+    this.machineTypeOption = 'select_option_421';
+    this.gpuSelect = 'select_454';
+    this.gpuOption = 'select_option_461';
+    this.gpuNumSelect = 'select_456';
+    this.gpuNumOption = 'select_option_465';
+    this.ssdSelect = 'select_416';
+    this.ssdOption = 'select_option_444';
+    this.locationSelect = 'select_111';
+    this.locationOption = 'select_option_239';
+    this.useageSelect = 'select_118';
+    this.useageOption = 'select_option_116';
+    this.vmClass = 'regular';
+    this.instanceType = 'n1-standard-8';
+    this.location = 'Frankfurt';
+    this.ssd = '4x375';
+    this.term = '1';
+    this.price = '1,265.78'
+  }
+
   async setWindow() {
     const originalWindow = await driver.getWindowHandle();
     return originalWindow;
@@ -35,16 +59,20 @@ class CalculatorPage extends Page {
   }
 
   async clickGPUCheckbox() {
-    await driver.findElement(By.xpath('//*[@id="mainForm"]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[11]/div[1]/md-input-container/md-checkbox')).click();
+    await driver.findElement(By.css('[aria-label="Add GPUs"')).click();
   }
 
-  async getEstimateData(xpath) {
-    const estimateData = await driver.findElement(By.xpath(xpath));
+  async getEstimateData(text) {
+    const estimateData = await driver.findElement(By.partialLinkText(text));
     return estimateData.getText();
   }
+
+  async getEstimatePrice() {
+    return await this.getEstimateData('USD');
+  }
   
-  async clickButton(xpath) {
-    await driver.findElement(By.xpath(xpath)).click();
+  async clickButton(id) {
+    await driver.findElement(By.id(id)).click();
   }
 
   async enterEmailAddress(emailAddress) {
