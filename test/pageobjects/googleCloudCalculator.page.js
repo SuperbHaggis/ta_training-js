@@ -1,30 +1,54 @@
 const Page = require('./page');
 
 class GoogleCloudCalculatorPage extends Page {
+  constructor() {
+    this.instanceNum = 4;
+    this.osSelect = 'select_91';
+    this.osOption = 'select_option_80';
+    this.seriesSelect = 'select_103';
+    this.seriesOption = 'select_option_218';
+    this.machineTypeSelect = 'select_105';
+    this.machineTypeOption = 'select_option_421';
+    this.gpuSelect = 'select_454';
+    this.gpuOption = 'select_option_461';
+    this.gpuNumSelect = 'select_456';
+    this.gpuNumOption = 'select_option_465';
+    this.ssdSelect = 'select_416';
+    this.ssdOption = 'select_option_444';
+    this.locationSelect = 'select_111';
+    this.locationOption = 'select_option_239';
+    this.useageSelect = 'select_118';
+    this.useageOption = 'select_option_116';
+    this.vmClass = 'regular';
+    this.instanceType = 'n1-standard-8';
+    this.location = 'Frankfurt';
+    this.ssd = '4x375';
+    this.term = '1';
+  }
+  
   get instancesInput() {
-    return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[1]/div[1]/md-input-container/input');
+    return $('#input_80');
   }
 
   get gpuCheckbox() {
-    return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[11]/div[1]/md-input-container/md-checkbox');
+    return $('[aria-label="Add GPUs"]');
   }
 
   get estimateBtn() {
-    // return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[17]/button');
     return $('button=Add to Estimate');
   }
 
   get emailEstimteBtn() {
-    return $('/html/body/md-content/md-card/div/md-card-content[2]/md-card/md-card-content/div/div/div/div[2]/button[1]');
+    return $('#email_quote');
   }
 
   get emailInput() {
-    return $('/html/body/div[7]/md-dialog/form/md-content/div[3]/md-input-container/input');
+    return $('#input_542');
     
   }
 
   get emailBtn() {
-    return $('/html/body/div[7]/md-dialog/form/md-dialog-actions/button[2]');
+    return $('button=Send Email');
   }
 
   async clickEstimateBtn() {
@@ -51,18 +75,14 @@ class GoogleCloudCalculatorPage extends Page {
     await option.click();
   }
 
-  async selectOptionByValue(selectPlaceholder, optionValue) {
-    const select = await driver.$(`[placeholder="${selectPlaceholder}"]`);
-    await select.click();
-
-    await driver.waitUntil(async () => await driver.$(`[value="${optionValue}"]`).isDisplayed());
-    const option = await driver.$(`[value="${optionValue}"]`);
-    await option.click();
+  async getEstimateText(text) {
+    const estimate = await driver.$(`div*=${text}`);
+    return estimate.getText();
   }
 
-  async getEstimateText(xPath) {
-    const estimate = await driver.$(xPath);
-    return estimate.getText();
+  async getEstimatePrice() {
+    const price = await driver.$('h2*=USD');
+    return (await price.getText()).replace(/^0-9./, '');
   }
 }
 

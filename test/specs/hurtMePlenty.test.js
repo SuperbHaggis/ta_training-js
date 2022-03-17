@@ -2,30 +2,21 @@ const HomePage = require('./test/pageobjects/googleCloudHome.page');
 const CalcPage = require('./test/pageobjects/googleCloudCalculator.page');
 
 describe('Hurt Me Plenty task', () => {
-  it('should open cloud.google.com and search for the Pricing Calculator', async () => {
+  before(async () => {
     await HomePage.open();
     await HomePage.searchForText('Google Cloud Platform Pricing Calculator');
-
-    await expect(browser).toHaveTitleContaining('Google Cloud Platform Pricing Calculator');
-  });
-
-  it('should navigate to the Calculator page via the correct search result', async () => {
     await HomePage.selectSearchResult('Google Cloud Platform Pricing Calculator');
     
-    await expect(browser).toHaveTitleContaining('Google Cloud Pricing Calculator')
-  });
-
-  it('should select the desired options', async() => {
     await CalcPage.switchToFormIframe();
-    await CalcPage.inputInstancesNumber(4);
-    await CalcPage.selectOptionByValue('Series', 'n1');
-    await CalcPage.selectOptionByValue('Instance type', 'CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8');
+    await CalcPage.inputInstancesNumber(CalcPage.instanceNum);
+    await CalcPage.selectOptionByID(CalcPage.seriesSelect, CalcPage.seriesOption);
+    await CalcPage.selectOptionByID(CalcPage.machineTypeSelect, CalcPage.machineTypeOption);
     await CalcPage.gpuCheckbox.click();
-    await CalcPage.selectOptionByValue('GPU type', 'NVIDIA_TESLA_V100');
-    await CalcPage.selectOptionByID('Number of GPUs', 'select_option_466');
-    await CalcPage.selectOptionByID('Local SSD', 'select_option_443');
-    await CalcPage.selectOptionByID('Datacenter location', 'select_option_240');
-    await CalcPage.selectOptionByID('Committed usage', 'select_option_117');
+    await CalcPage.selectOptionByValue(CalcPage.gpuSelect, CalcPage.gpuOption);
+    await CalcPage.selectOptionByID(CalcPage.gpuNumSelect, CalcPage.gpuNumOption);
+    await CalcPage.selectOptionByID(CalcPage.ssdSelect, CalcPage.ssdOption);
+    await CalcPage.selectOptionByID(CalcPage.locationSelect, CalcPage.locationOption);
+    await CalcPage.selectOptionByID(CalcPage.useageSelect, CalcPage.usageOption);
   });
 
   it('should submit the options for an estimate', async () => {
@@ -33,27 +24,27 @@ describe('Hurt Me Plenty task', () => {
   });
 
   it('should have the correct VM Class in estimate', async () => {
-    await expect(await CalcPage.getEstimateText('//*[@id="compute"]/md-list/md-list-item[4]/div'))
+    await expect(await CalcPage.getEstimateText(CalcPage.vmClass))
       .toContain('regular');
   });
 
   it('should have the correct Instance Type in estimate', async () => {
-    await expect(await CalcPage.getEstimateText('//*[@id="compute"]/md-list/md-list-item[5]/div[1]'))
+    await expect(await CalcPage.getEstimateText(CalcPage.instanceType))
       .toContain('n1-standard-8');
   });
 
   it('should have the correct Region in estimate', async () => {
-    await expect(await CalcPage.getEstimateText('//*[@id="compute"]/md-list/md-list-item[1]/div'))
+    await expect(await CalcPage.getEstimateText(CalcPage.location))
       .toContain('Frankfurt');
   });
 
   it('should have the correct SSD in estimate', async () => {
-    await expect(await CalcPage.getEstimateText('//*[@id="compute"]/md-list/md-list-item[7]/div[1]'))
+    await expect(await CalcPage.getEstimateText(CalcPage.ssd))
       .toContain('2x375 GiB');
   });
 
   it('should have the correct Commitment Term in estimate', async () => {
-    await expect(await CalcPage.getEstimateText('//*[@id="compute"]/md-list/md-list-item[3]/div'))
+    await expect(await CalcPage.getEstimateText('CalcPage.term'))
       .toContain('1 Year');
   });
 });

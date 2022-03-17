@@ -10,9 +10,10 @@ class TenMinuteMailPage extends Page {
     return (await this.emailInput).getValue();
   }
 
-  // open() {
-  //   return super.open('https://10minutemail.com');
-  // }
+  async getEmailEstimate() {
+    await driver.$('#mail_message').click();
+    return (await (await driver.$('h3*=USD')).getText()).replace(/^0-9./, '');
+  }
 }
 
 module.exports = new TenMinuteMailPage();

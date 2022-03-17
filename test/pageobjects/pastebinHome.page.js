@@ -1,6 +1,13 @@
 const Page = require('./page');
 
 class PastebinHomePage extends Page {
+  constructor() {
+    this.postText = 'Hello from WebDriver';
+    this.expiration = '10 Minutes';
+    this.title = 'helloweb';
+    this.syntax = 'Bash';
+  }
+  
   get postFormTextarea() {
     return $('#postform-text');
   }

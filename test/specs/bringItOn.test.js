@@ -7,10 +7,10 @@ describe('I Can Win task', () => {
 
     await HomePage.enterPostText('git config --global user.name "New Sheriff in Town"\uE007git reset $ (git commit-tree HEAD ^ {tree} -m "Legacy code")\uE007git push origin master --force');
 
-    await HomePage.selectSyntax('Bash');
-    await HomePage.selectExpiration('10 Minutes');
+    await HomePage.selectSyntax(HomePage.syntax);
+    await HomePage.selectExpiration(HomePage.expiration);
 
-    await HomePage.enterTitle('how to gain dominance among developers');
+    await HomePage.enterTitle(HomePage.title);
 
     await HomePage.btnSubmit.click();
   });

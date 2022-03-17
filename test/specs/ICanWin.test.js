@@ -5,11 +5,11 @@ describe('I Can Win task', () => {
   it('should open pastebin.com and create a new post', async () => {
     await HomePage.open();
 
-    await HomePage.enterPostText('Hello from WebDriver');
+    await HomePage.enterPostText(HomePage.postText);
 
-    await HomePage.selectExpiration('10 Minutes');
+    await HomePage.selectExpiration(HomePage.expiration);
 
-    await HomePage.enterTitle('helloweb');
+    await HomePage.enterTitle(HomePage.title);
 
     await HomePage.btnSubmit.click();
   });
