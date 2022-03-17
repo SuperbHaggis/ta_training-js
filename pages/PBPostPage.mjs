@@ -2,6 +2,11 @@ import { By, Key, until } from 'selenium-webdriver';
 import Page from './Page.mjs';
 
 class PostPage extends Page {
+  constructor() {
+    this.title = 'how to gain dominance among developers';
+    this.syntax = 'Bash';
+  }
+
   async getSyntax(linkText) {
     await driver.wait(until.elementLocated(By.linkText(linkText)), 10000);
   }
