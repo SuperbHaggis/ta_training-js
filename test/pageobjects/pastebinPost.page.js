@@ -14,7 +14,11 @@ class PastebinPostPage extends Page {
   }
 
   async waitForTitleChange() {
-    await browser.waitUntil(async () => await browser.getTitle() !== 'Pastebin.com - #1 paste tool since 2002!')
+    await browser.waitUntil(
+      async () =>
+        (await browser.getTitle()) !==
+        'Pastebin.com - #1 paste tool since 2002!'
+    );
   }
 }
 

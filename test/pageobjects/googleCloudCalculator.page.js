@@ -1,12 +1,29 @@
 const Page = require('./page');
 
 class GoogleCloudCalculatorPage extends Page {
+  constructor() {
+    this.instanceNum = 4;
+    this.osSelect = 'select_91';
+    this.seriesSelect = 'select_103';
+    this.machineTypeSelect = 'select_105';
+    this.gpuSelect = 'select_454';
+    this.gpuNumSelect = 'select_456';
+    this.ssdSelect = 'select_416';
+    this.locationSelect = 'select_111';
+    this.useageSelect = 'select_118';
+    this.vmClass = 'regular';
+    this.instanceType = 'n1-standard-8';
+    this.location = 'Frankfurt';
+    this.ssd = '4x375';
+    this.term = '1';
+  }
+
   get instancesInput() {
-    return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[1]/div[1]/md-input-container/input');
+    return $('#input_80');
   }
 
   get gpuCheckbox() {
-    return $('/html/body/md-content/md-card/div/md-card-content[1]/div[2]/div/md-card/md-card-content/div/div[1]/form/div[11]/div[1]/md-input-container/md-checkbox');
+    return $('[aria-label="Add GPUs"]');
   }
 
   get estimateBtn() {
@@ -14,12 +31,11 @@ class GoogleCloudCalculatorPage extends Page {
   }
 
   get emailEstimteBtn() {
-    return $('button=Email Estimate');
+    return $('#email_quote');
   }
 
   get emailInput() {
-    return $('/html/body/div[7]/md-dialog/form/md-content/div[3]/md-input-container/input');
-    
+    return $('#input_542');
   }
 
   get emailBtn() {
@@ -45,32 +61,21 @@ class GoogleCloudCalculatorPage extends Page {
     const select = await driver.$(`[placeholder="${selectPlaceholder}"]`);
     await select.click();
 
-    await driver.waitUntil(async () => await driver.$(`#${optionID}`).isDisplayed());
+    await driver.waitUntil(
+      async () => await driver.$(`#${optionID}`).isDisplayed()
+    );
     const option = await driver.$(`#${optionID}`);
     await option.click();
   }
 
-  async selectOptionByValue(selectPlaceholder, optionValue) {
-    const select = await driver.$(`[placeholder="${selectPlaceholder}"]`);
-    await select.click();
-
-    await driver.waitUntil(async () => await driver.$(`[value="${optionValue}"]`).isDisplayed());
-    const option = await driver.$(`[value="${optionValue}"]`);
-    await option.click();
-  }
-
-  async selectOptionByText(selectPlaceholder, text) {
-    const select = await driver.$(`[placeholder="${selectPlaceholder}"]`);
-    await select.click();
-
-    await driver.waitUntil(async () => await driver.$(`div*=${text}`).isDisplayed());
-    const option = await driver.$(`div*=${text}`).parentElement();
-    await option.click();
-  }
-
-  async getEstimateText(xPath) {
-    const estimate = await driver.$(xPath);
+  async getEstimateText(text) {
+    const estimate = await driver.$(`div*=${text}`);
     return estimate.getText();
+  }
+
+  async getEstimatePrice() {
+    const price = await driver.$('h2*=USD');
+    return (await price.getText()).replace(/^0-9./, '');
   }
 }
 

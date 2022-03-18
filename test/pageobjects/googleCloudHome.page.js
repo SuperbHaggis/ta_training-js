@@ -7,7 +7,8 @@ class GoogleCloudHomePage extends Page {
 
   async searchForText(text) {
     await this.searchBar.setValue(text);
-    await this.searchBar.addValue('\uE007');
+    const enterKey = '\uE007';
+    await this.searchBar.addValue(enterKey);
   }
 
   async selectSearchResult(text) {
