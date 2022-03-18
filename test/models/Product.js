@@ -1,4 +1,13 @@
-function Product (instanceNum, series, instance, gpu, gpuNum, ssd, location, years) {
+function Product(
+  instanceNum,
+  series,
+  instance,
+  gpu,
+  gpuNum,
+  ssd,
+  location,
+  years
+) {
   this.instanceNum = instanceNum;
   this.series = series;
   this.instance = instance;
@@ -9,4 +18,4 @@ function Product (instanceNum, series, instance, gpu, gpuNum, ssd, location, yea
   this.years = years;
 }
 
-module.exports = Product
+module.exports = Product;
