@@ -71,7 +71,6 @@ exports.config = {
     },
     {
       browserName: 'firefox',
-      browserVersion: '0.30.0',
     },
   ],
   //
