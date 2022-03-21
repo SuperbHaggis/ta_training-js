@@ -23,11 +23,11 @@ exports.config = {
   specs: ['./test/specs/**/*.js'],
   suites: {
     assignments: [
-      './test/spec/hurtMePlenty.test.js',
-      './test/spec/iCanWin.test.js',
-      './test/spec/bringItOn.test.js',
+      './test/specs/hurtMePlenty.test.js',
+      './test/specs/iCanWin.test.js',
+      './test/specs/bringItOn.test.js',
     ],
-    smoke: ['./test/spec/hardcore.test.js'],
+    smoke: ['./test/specs/hardcore.test.js'],
   },
   // Patterns to exclude.
   exclude: [
